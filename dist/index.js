@@ -26,6 +26,11 @@ app.get("/:w", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let rd = yield (0, logg_1.gyt)(sb);
     res.send(res.json(rd));
 }));
+app.get("/r/:w", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let sb = req.params.w;
+    let rd = yield (0, logg_1.gyt)(`r/${sb}`);
+    res.send(res.json(rd));
+}));
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

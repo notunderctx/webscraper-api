@@ -52,36 +52,34 @@ let gyt = (subreddit) => __awaiter(void 0, void 0, void 0, function* () {
         visible: true,
     });
     const data = yield page.evaluate(() => {
-        const site = document.getElementById("siteTable"); //forem page
+        const site = document.getElementById("siteTable"); // Forum page
         if (site) {
-            const tc = site.querySelectorAll(".title may-blank outbound");
+            const tc = site.querySelectorAll(".title.may-blank.outbound");
             const ddiv = site.querySelectorAll("div");
+            const result = [];
             ddiv.forEach(div => {
-                const likeC = site.querySelectorAll(".midcol.unvoted");
-                likeC.forEach(like => {
-                    let _upvotes = site.querySelector(".score likes");
-                    let upvotes = _upvotes === null || _upvotes === void 0 ? void 0 : _upvotes.textContent;
+                var _a, _b;
+                const likeC = div.querySelectorAll(".midcol.unvoted");
+                const spans = div.querySelectorAll("span");
+                const upvotes = (_a = div.querySelector(".score.likes")) === null || _a === void 0 ? void 0 : _a.textContent;
+                const rank = (_b = div.querySelector(".rank")) === null || _b === void 0 ? void 0 : _b.textContent;
+                const titles = [];
+                tc.forEach(titleElement => {
+                    titles.push(titleElement.textContent);
                 });
-                const spans = site.querySelectorAll("span");
-                spans.forEach(span => {
-                    const _rank = span.querySelector(".rank");
-                    if (_rank) {
-                        let rank = _rank.textContent;
-                    }
+                result.push({
+                    titles,
+                    upvotes,
+                    rank
                 });
             });
-            const src = Array.from(tc).map(v => v.textContent);
-            return src;
+            return result;
         }
         else {
             return [];
         }
     });
     yield browser.close();
-    const ytp = {
-        data: data
-    };
-    return ytp;
+    return data;
 });
 exports.gyt = gyt;
-(0, exports.gyt)();
